@@ -1,0 +1,268 @@
+﻿
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MundoFitVzla — Comida Saludable Venezolana a Tu Puerta</title>
+  <meta name="description" content="Arepas, tequeños y empanadas artesanales sin azúcar añadida. Pide tu menú fit venezolano fácil por WhatsApp con envío rápido.">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="target.css">
+  <style>
+    .nav-cta-btn { position: relative; }
+    .nav-cart-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 999px;
+      background: var(--color-energy);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .form-grid { display: grid; gap: .5rem; }
+    .form-actions { display: grid; gap: .7rem; margin-top: .8rem; }
+    .cart-close-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1.5px solid var(--color-border);
+      background: var(--color-white);
+      color: var(--color-primary);
+      font-size: 18px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .form-input[aria-invalid="true"] {
+      border-color: #ef5350;
+      box-shadow: 0 0 0 3px rgba(239,83,80,.1);
+    }
+    .cart-overlay.visible { opacity: 1; pointer-events: all; }
+    .cart-panel.open { transform: translateX(0); animation: none; }
+    .cart-panel.closing { transform: translateX(110%); animation: none; }
+    .toast { pointer-events: none; }
+  </style>
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="Navegación principal">
+    <a href="#inicio" class="nav-logo flex items-center gap-2">
+      <div class="flex items-center">
+        <img alt="Logo" width="32" height="32" decoding="async" class="flex-shrink-0 bg-gray-200" src="img/2.png">
+      </div>
+      <span class="font-display font-extrabold tracking-tight">MundoFit<span style="color:#8BC34A">Vzla</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#menu" class="nav-link">Menú</a></li>
+      <li><a href="#confianza" class="nav-link">Nosotros</a></li>
+      <li><a href="#como-pedir" class="nav-link">Cómo Pedir</a></li>
+    </ul>
+    <button id="navCartBtn" class="nav-cta-btn" aria-label="Abrir carrito, 0 productos">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 01-8 0"></path>
+      </svg>
+      Carrito
+      <span id="navCartBadge" class="nav-cart-badge">0</span>
+    </button>
+  </nav>
+
+  <section class="hero-section" id="inicio" aria-label="Inicio - MundoFitVzla">
+    <div class="relative" style="width:100%;height:100%">
+      <img alt="Comida saludable venezolana colorida con arepas y vegetales frescos sobre fondo de madera" decoding="async" class="hero-bg-img bg-gray-200" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;object-fit:cover;color:transparent" src="https://images.unsplash.com/photo-1605894428779-b28c33266762">
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-content">
+      <div style="max-width:560px">
+        <div class="hero-badge"><span class="hero-badge-dot" aria-hidden="true"></span>Venezuela · Comida Artesanal Fit</div>
+        <h1 class="hero-headline">Sano, <span class="hero-headline-accent">Sabroso</span><br>y Hecho con Amor</h1>
+        <p class="hero-sub">Arepas, tequeños y empanadas artesanales sin azúcar añadida. Ingredientes reales, recetas venezolanas. Pídelas directo por WhatsApp.</p>
+        <div class="hero-ctas">
+          <button id="heroMenuBtn" class="btn-primary" aria-label="Ver menú completo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"></path>
+              <rect x="9" y="3" width="6" height="4" rx="1"></rect>
+            </svg>
+            Ver Menú
+          </button>
+          <button id="heroOrderBtn" class="btn-whatsapp" aria-label="Pedir directamente por WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"></path></svg>
+            Pedir por WhatsApp
+          </button>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-item"><div class="hero-stat-value">100%</div><div class="hero-stat-label">Sin Azúcar Añadida</div></div>
+        <div class="hero-stat-item"><div class="hero-stat-value">6+</div><div class="hero-stat-label">Variedades de Masa</div></div>
+        <div class="hero-stat-item"><div class="hero-stat-value">$1.5</div><div class="hero-stat-label">Desde</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits-section" id="beneficios" aria-labelledby="benefits-heading">
+    <div class="organic-divider" style="margin-top:-4rem;margin-bottom:3rem" aria-hidden="true">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="height:60px"><path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="white"></path></svg>
+    </div>
+    <div class="container">
+      <div class="reveal-up text-center" style="margin-bottom:.5rem">
+        <span class="section-eyebrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>Por Qué Elegirnos</span>
+        <h2 id="benefits-heading" class="section-headline">Comida que te <span class="section-headline-serif">nutre de verdad</span></h2>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-card reveal-up stagger-1" role="article"><div class="benefit-icon" style="background:rgba(46,125,50,.1)" aria-hidden="true">🌿</div><h3 class="benefit-title">Ingredientes Naturales</h3><p class="benefit-desc">Sin conservantes, sin colorantes. Solo ingredientes reales de la tierra venezolana.</p></div>
+        <div class="benefit-card reveal-up stagger-2" role="article"><div class="benefit-icon" style="background:rgba(139,195,74,.12)" aria-hidden="true">🤲</div><h3 class="benefit-title">Hecho Artesanal</h3><p class="benefit-desc">Cada pieza preparada a mano con recetas tradicionales y amor venezolano.</p></div>
+        <div class="benefit-card reveal-up stagger-3" role="article"><div class="benefit-icon" style="background:rgba(226,164,43,.12)" aria-hidden="true">🚫🍬</div><h3 class="benefit-title">Sin Azúcar Añadida</h3><p class="benefit-desc">Ideal para diabéticos, niños y quienes cuidan su alimentación sin sacrificar sabor.</p></div>
+        <div class="benefit-card reveal-up stagger-4" role="article"><div class="benefit-icon" style="background:rgba(255,111,0,.1)" aria-hidden="true">⚡</div><h3 class="benefit-title">Listo Rápido</h3><p class="benefit-desc">Pide hoy, recibe pronto. Proceso simple por WhatsApp, sin complicaciones.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="menu" aria-labelledby="menu-heading">
+    <div class="container">
+      <div class="reveal-up">
+        <span class="section-eyebrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"></path><rect x="9" y="3" width="6" height="4" rx="1"></rect></svg>Nuestro Menú</span>
+        <h2 id="menu-heading" class="section-headline">Elige tu <span class="section-headline-serif">combo favorito</span></h2>
+        <p style="font-size:.9rem;color:var(--color-text-muted);margin-top:.5rem;max-width:500px">Todos nuestros productos son artesanales, sin azúcar añadida y con ingredientes naturales.</p>
+      </div>
+      <div id="categoryTabs" class="category-tabs" role="tablist" aria-label="Categorías del menú"></div>
+      <div id="productsGrid" class="products-grid" role="tabpanel" aria-label="Productos de categoría"></div>
+    </div>
+  </section>
+  <section class="trust-section" id="confianza" aria-labelledby="trust-heading">
+    <div class="container" style="position:relative">
+      <span class="watermark-text" style="top:-2rem;left:-1rem" aria-hidden="true">Natural</span>
+      <div class="reveal-up text-center" style="position:relative;z-index:1">
+        <span class="section-eyebrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Ingredientes y Confianza</span>
+        <h2 id="trust-heading" class="section-headline">Sabemos lo que le <span class="section-headline-serif">ponemos a tu comida</span></h2>
+        <p style="font-size:.9rem;color:var(--color-text-muted);margin-top:.5rem;max-width:480px;margin:.5rem auto 0">Ingredientes seleccionados, preparación cuidadosa, cero atajos.</p>
+      </div>
+      <div class="ingredients-grid" style="position:relative;z-index:1">
+        <div class="ingredient-chip reveal-up stagger-1" role="listitem"><span class="ingredient-emoji" aria-hidden="true">🌽</span><div><div class="ingredient-text">Maíz Nativo</div><div style="font-size:.7rem;color:var(--color-text-muted)">Sin modificar</div></div></div>
+        <div class="ingredient-chip reveal-up stagger-2" role="listitem"><span class="ingredient-emoji" aria-hidden="true">🍌</span><div><div class="ingredient-text">Plátano Maduro</div><div style="font-size:.7rem;color:var(--color-text-muted)">Endulzante natural</div></div></div>
+        <div class="ingredient-chip reveal-up stagger-3" role="listitem"><span class="ingredient-emoji" aria-hidden="true">🥕</span><div><div class="ingredient-text">Zanahoria Fresca</div><div style="font-size:.7rem;color:var(--color-text-muted)">Antioxidantes</div></div></div>
+        <div class="ingredient-chip reveal-up stagger-4" role="listitem"><span class="ingredient-emoji" aria-hidden="true">🌿</span><div><div class="ingredient-text">Chía Orgánica</div><div style="font-size:.7rem;color:var(--color-text-muted)">Omega 3</div></div></div>
+        <div class="ingredient-chip reveal-up stagger-4" role="listitem"><span class="ingredient-emoji" aria-hidden="true">🍠</span><div><div class="ingredient-text">Yuca Artesanal</div><div style="font-size:.7rem;color:var(--color-text-muted)">Sin gluten</div></div></div>
+        <div class="ingredient-chip reveal-up stagger-4" role="listitem"><span class="ingredient-emoji" aria-hidden="true">🧀</span><div><div class="ingredient-text">Queso Blanco</div><div style="font-size:.7rem;color:var(--color-text-muted)">Local y fresco</div></div></div>
+        <div class="ingredient-chip reveal-up stagger-4" role="listitem"><span class="ingredient-emoji" aria-hidden="true">🍗</span><div><div class="ingredient-text">Pollo de Campo</div><div style="font-size:.7rem;color:var(--color-text-muted)">Sin hormonas</div></div></div>
+        <div class="ingredient-chip reveal-up stagger-4" role="listitem"><span class="ingredient-emoji" aria-hidden="true">🥦</span><div><div class="ingredient-text">Espinaca Verde</div><div style="font-size:.7rem;color:var(--color-text-muted)">Rica en hierro</div></div></div>
+      </div>
+      <div style="margin-top:4rem;position:relative;z-index:1">
+        <div class="reveal-up" style="text-align:center;margin-bottom:2rem"><span class="section-eyebrow">💬 Lo que dicen nuestros clientes</span></div>
+        <div class="testimonials-wrap">
+          <div class="testimonial-stack-bg" aria-hidden="true"></div>
+          <div class="testimonial-card reveal-up stagger-1" style="margin-bottom:1.5rem" role="article" aria-label="Testimonio de Mariela Rodríguez">
+            <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+            <blockquote class="testimonial-quote">“Las arepas de zanahoria son increíbles. Mis hijos las piden cada semana y yo tranquila porque no llevan azúcar. ¡Son deliciosas y se calientan en minutos!”</blockquote>
+            <div class="testimonial-author"><div class="testimonial-avatar" style="background:#2E7D32" aria-hidden="true">MR</div><div><div class="testimonial-name">Mariela Rodríguez</div><div class="testimonial-role">Mamá de 2 niños · Caracas</div></div></div>
+          </div>
+          <div class="testimonial-card reveal-up stagger-2" style="margin-bottom:1.5rem" role="article" aria-label="Testimonio de Sofía Hernández">
+            <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+            <blockquote class="testimonial-quote">“Pedí los tequeños de plátano y quedé enamorada. El sabor es único, nada que ver con los comerciales. El proceso por WhatsApp fue rapidísimo y claro.”</blockquote>
+            <div class="testimonial-author"><div class="testimonial-avatar" style="background:#FF6F00" aria-hidden="true">SH</div><div><div class="testimonial-name">Sofía Hernández</div><div class="testimonial-role">Nutricionista · Valencia</div></div></div>
+          </div>
+          <div class="testimonial-card reveal-up stagger-3" style="margin-bottom:0" role="article" aria-label="Testimonio de Carlos Pérez">
+            <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+            <blockquote class="testimonial-quote">“Como diabético buscaba opciones saludables sin perder el sabor venezolano. MundoFitVzla es exactamente eso. Los jugos detox también son espectaculares.”</blockquote>
+            <div class="testimonial-author"><div class="testimonial-avatar" style="background:#8BC34A" aria-hidden="true">CP</div><div><div class="testimonial-name">Carlos Pérez</div><div class="testimonial-role">Cliente frecuente · Maracaibo</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-section" id="como-pedir" aria-labelledby="how-heading">
+    <div class="container">
+      <div class="reveal-up text-center">
+        <span class="section-eyebrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Proceso Simple</span>
+        <h2 id="how-heading" class="section-headline">Pide en <span class="section-headline-serif">3 pasos fáciles</span></h2>
+        <p style="font-size:.9rem;color:var(--color-text-muted);margin-top:.5rem;max-width:420px;margin:.5rem auto 0">Sin apps, sin registros. Solo WhatsApp y tu antojo fit.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card reveal-scale stagger-1 how-card-large" role="article"><div class="how-step-num how-step-num-large" aria-hidden="true">01</div><div class="how-icon" aria-hidden="true">🛒</div><h3 class="how-title how-title-light">Arma tu pedido</h3><p class="how-desc how-desc-light">Explora el menú, elige tus productos favoritos y selecciona la variedad de masa que prefieras. Agrega al carrito.</p></div>
+        <div class="how-card reveal-scale stagger-2" role="article"><div class="how-step-num" aria-hidden="true">02</div><div class="how-icon" aria-hidden="true">📋</div><h3 class="how-title">Llena tus datos</h3><p class="how-desc">Nombre, teléfono, zona de entrega y método de pago. Todo en el mismo carrito.</p></div>
+        <div class="how-card reveal-scale stagger-3" role="article"><div class="how-step-num" aria-hidden="true">03</div><div class="how-icon" aria-hidden="true">💬</div><h3 class="how-title">Envía por WhatsApp</h3><p class="how-desc">Un clic y tu pedido completo llega directo a nuestro WhatsApp. ¡Confirmamos en minutos!</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" aria-labelledby="cta-heading">
+    <div class="container" style="position:relative;z-index:2">
+      <div class="reveal-up text-center">
+        <div class="cta-urgency" aria-label="Pedidos disponibles hoy"><span aria-hidden="true">🕐</span>Pedidos disponibles hoy · Respuesta en minutos</div>
+        <h2 id="cta-heading" class="cta-headline">Tu comida fit<br><span style="font-family:Fraunces, serif;font-style:italic;font-weight:400">venezolana te espera</span></h2>
+        <p class="cta-sub">Arma tu pedido ahora, llénalo de sabor artesanal y recíbelo sin complicaciones. Sin azúcar añadida, sin conservantes, solo amor venezolano.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+          <button id="ctaOrderBtn" class="btn-energy" aria-label="Abrir carrito y hacer pedido" style="font-size:1rem;padding:16px 36px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 01-8 0"></path></svg>
+            Hacer mi Pedido
+          </button>
+          <a href="https://wa.me/584120000000?text=Hola%2C%20quiero%20ver%20el%20men%C3%BA%20de%20MundoFitVzla" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" aria-label="Consultar por WhatsApp" style="font-size:.95rem">Consultar por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="flex items-center gap-2"><div class="flex items-center"><img alt="Logo" width="28" height="28" decoding="async" class="flex-shrink-0 bg-gray-200" src="img/2.png"></div><span class="footer-logo">MundoFit<span style="color:#8BC34A">Vzla</span></span></div>
+      <nav class="footer-links" aria-label="Footer navigation"><a href="#menu" class="footer-link">Menú</a><a href="#como-pedir" class="footer-link">Cómo Pedir</a><a href="#confianza" class="footer-link">Nosotros</a><a href="https://wa.me/584120000000" class="footer-link" target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
+      <p class="footer-copy">© 2026 MundoFitVzla · Comida saludable con sabor venezolano · Hecho con 💚</p>
+    </div>
+  </footer>
+
+  <button id="cartFab" class="cart-fab" aria-label="Abrir carrito">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 01-8 0"></path></svg>
+  </button>
+  <div id="toastContainer" class="toast-container" role="region" aria-live="polite" aria-label="Notificaciones"></div>
+  <div id="cartOverlay" class="cart-overlay" aria-hidden="true"></div>
+
+  <aside id="cartPanel" class="cart-panel" aria-hidden="true" aria-labelledby="cartTitle">
+    <header class="cart-header">
+      <h2 id="cartTitle" class="cart-title">Tu carrito fit</h2>
+      <button id="closeCartBtn" type="button" class="cart-close-btn" aria-label="Cerrar carrito">×</button>
+    </header>
+    <div id="cartItems" class="cart-items-list"></div>
+    <p class="form-section-title">Datos para confirmar pedido</p>
+    <form id="orderForm" class="order-form" novalidate>
+      <div class="form-grid">
+        <input class="form-input" type="text" name="name" placeholder="Nombre y apellido *" autocomplete="name">
+        <p class="form-error-msg" data-error="name"></p>
+        <input class="form-input" type="tel" name="phone" placeholder="Teléfono *" autocomplete="tel">
+        <p class="form-error-msg" data-error="phone"></p>
+        <input class="form-input" type="text" name="zone" placeholder="Zona o dirección *" autocomplete="street-address">
+        <p class="form-error-msg" data-error="zone"></p>
+        <input class="form-input" type="text" name="reference" placeholder="Punto de referencia *">
+        <p class="form-error-msg" data-error="reference"></p>
+        <select class="form-input" name="payment">
+          <option value="">Método de pago *</option>
+          <option>Pago móvil</option>
+          <option>Transferencia</option>
+          <option>Zelle</option>
+          <option>Efectivo</option>
+        </select>
+        <p class="form-error-msg" data-error="payment"></p>
+        <textarea class="form-input" name="comment" rows="2" maxlength="220" placeholder="Comentario adicional (opcional)"></textarea>
+      </div>
+    </form>
+    <div class="cart-footer">
+      <div class="cart-totals">
+        <span class="cart-total-label">Total</span>
+        <span id="cartTotal" class="cart-total-value">$0.00</span>
+      </div>
+      <div class="form-actions">
+        <button id="clearCartBtn" type="button" class="btn-clear-cart">Vaciar carrito</button>
+        <button id="sendOrderBtn" type="button" class="btn-whatsapp">Enviar pedido por WhatsApp</button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
