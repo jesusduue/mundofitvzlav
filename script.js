@@ -12,7 +12,7 @@
         description: "Arepas sin azúcar en múltiples sabores. Pack de 10 unidades listas para calentar.",
         price: 4,
         unit: "10 unidades",
-        image: "./img/arepas.png",
+        image: "./img/arepasmix.webp",
         imageAlt: "Arepas artesanales recién hechas con masa de colores naturales sobre tabla de madera",
         badge: "Popular",
         badgeClass: "",
@@ -26,7 +26,7 @@
         description: "Crujientes por fuera, derretidos por dentro. Masa artesanal sin azúcar añadida.",
         price: 3,
         unit: "Por docena",
-        image: "./img/tequeños.png",
+        image: "./img/tequeños.webp",
         imageAlt: "Tequeños dorados rellenos de queso apilados sobre papel kraft",
         badge: "Favorito",
         badgeClass: "product-badge-green",
@@ -40,7 +40,7 @@
         description: "Rellenas de pollo jugoso. Masa artesanal sin azúcar, horneadas o fritas.",
         price: 4,
         unit: "10 unidades",
-        image: "./img/EMPANADAS1.png",
+        image: "./img/empanadasyuca-maiz.webp",
         imageAlt: "Empanadas doradas rellenas de pollo desmechado sobre tabla de madera",
         variantLabel: "Tipo de masa",
         variants: ["Maíz amarillo", "Plátano maduro", "Yuca con chía"]
@@ -52,7 +52,7 @@
         description: "Pollo cocido y desmechado, condimentado con especias naturales. Ideal para rellenar.",
         price: 4,
         unit: "250 gramos",
-        image: "./img/pollo-esmechado.jpg",
+        image: "./img/pollo-esmechadologo.webp",
         imageAlt: "Pollo desmechado condimentado en bowl blanco sobre fondo verde",
         badge: "Proteína",
         badgeClass: "product-badge-green"
@@ -64,7 +64,7 @@
         description: "Blend de vegetales y frutas para licuar. Sin azúcar, listo para preparar en casa.",
         price: 2.5,
         unit: "Por porción",
-        image: "./img/jugo-detox.png",
+        image: "./img/jugo-detox.webp",
         imageAlt: "Jugo verde detox congelado con vegetales frescos y frutas coloridas",
         badge: "Detox",
         badgeClass: ""
@@ -76,7 +76,7 @@
         description: "Yogurt pequeño artesanal, sin azúcar añadida. Rico en probióticos naturales.",
         price: 1.5,
         unit: "Porción individual",
-        image: "./img/yogurt.jpg",
+        image: "./img/yogures.webp",
         imageAlt: "Yogurt natural blanco cremoso en vaso de vidrio con frutas rojas encima"
       }
     ];

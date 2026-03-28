@@ -1030,11 +1030,35 @@ body {
     cursor: pointer;
     transition: all .25s ease;
     text-decoration: none;
-    backdrop-filter: blur(8px)
+    backdrop-filter: blur(8px);
 }
-
 .btn-whatsapp:hover {
     background: hsla(0, 0%, 100%, .12);
+    border-color: hsla(0, 0%, 100%, .7);
+    transform: translateY(-2px)
+}
+
+.btn-whatsapp-carrito {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-accent-light);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: .875rem;
+    font-weight: 600;
+    padding: 13px 24px;
+    border-radius: var(--radius-full);
+    border: 1.5px solid hsla(0, 0%, 100%, .4);
+    cursor: pointer;
+    transition: all .25s ease;
+    text-decoration: none;
+    backdrop-filter: blur(8px);
+    flex-direction: column;
+}
+
+.btn-whatsapp-carrito:hover {
+    background: var(--color-accent);
     border-color: hsla(0, 0%, 100%, .7);
     transform: translateY(-2px)
 }
