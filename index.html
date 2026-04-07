@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -80,15 +80,14 @@
     }
 
     .hero-badge-anchor {
-      position: absolute;
-      top: 10px;
-      left: 40%;
-      width: 35%;
-     
+      position: relative;
+      width: 100%;
+      height: 30px;
       display: flex;
+      align-items: center;
       justify-content: center;
-      z-index: 46;
-      pointer-events: none;
+      z-index: 60;
+      background: rgba(139, 195, 74, .18);
     }
 
     .hero-badge-anchor .hero-badge {
@@ -96,25 +95,44 @@
       justify-content: center;
       text-align: center;
       white-space: nowrap;
+      background: transparent;
+      border: none;
+      color: var(--color-primary);
+      backdrop-filter: blur(8px);
+      animation: none;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .hero-badge-anchor .hero-badge-dot {
+      background-color: var(--color-accent);
+    }
+
+    .navbar {
+      position: absolute !important;
+      top: 36px !important;
+    }
+
+    .navbar.scrolled {
+      position: fixed !important;
+      top: 0 !important;
     }
 
     @media (min-width: 768px) {
-      .hero-badge-anchor {
-        top: 74px;
-      }
-
       .hero-badge-anchor .hero-badge {
-        min-height: 34px;
         padding-inline: 18px;
+        margin-top: 0;
       }
     }
 
     @media (max-width: 767px) {
       .hero-badge-anchor {
-        position: static;
-        width: auto;
-        justify-content: flex-start;
-        padding: .35rem 0 0 .8rem;
+        justify-content: center;
+        padding: 0;
+      }
+
+      .hero-badge-anchor .hero-badge {
+        font-size: 11px;
       }
     }
   </style>
@@ -122,12 +140,14 @@
 
 <body>
   <div class="hero-badge-anchor">
-    <div class="hero-badge"><span class="hero-badge-dot" aria-hidden="true"></span>Venezuela · Comida Artesanal Fit</div>
+    <div class="hero-badge"><span class="hero-badge-dot" aria-hidden="true"></span>Venezuela · San Francisco, Maracaibo
+    </div>
   </div>
   <nav class="navbar" role="navigation" aria-label="Navegación principal">
     <a href="#inicio" class="nav-logo flex items-center gap-2">
       <div class="flex items-center">
-        <img alt="Logo" width="100" height="50" decoding="async" class="logo" src="./img/LOGO-VARIANTE-HORIZONTAL-VERDE.png">
+        <img alt="Logo" width="100" height="50" decoding="async" class="logo"
+          src="./img/LOGO-VARIANTE-HORIZONTAL-VERDE.png">
       </div>
       <span class="font-display font-extrabold tracking-tight">MundoFit<span style="color:#8BC34A">Vzla</span></span>
     </a>
@@ -448,14 +468,14 @@
     <div class="footer-inner">
       <div class="flex items-center gap-2">
         <div class="flex items-center"><img alt="Logo" width="28" height="28" decoding="async"
-            class="flex-shrink-0 bg-gray-200" src="img/LOGO-VARIANTE-HORIZONTAL-VERDE.png"></div><span class="footer-logo">MundoFit<span
-            style="color:#8BC34A">Vzla</span></span>
+            class="flex-shrink-0 bg-gray-200" src="img/LOGO-VARIANTE-HORIZONTAL-VERDE.png"></div><span
+          class="footer-logo">MundoFit<span style="color:#8BC34A">Vzla</span></span>
       </div>
       <nav class="footer-links" aria-label="Footer navigation"><a href="#menu" class="footer-link">Menú</a><a
           href="#como-pedir" class="footer-link">Cómo Pedir</a><a href="#confianza" class="footer-link">Nosotros</a><a
           href="https://wa.me/584247777965" class="footer-link" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       </nav>
-      <p class="footer-copy">© 2026 MundoFitVzla · Comida saludable con sabor venezolano · Hecho con 💚</p>
+      <p class="footer-copy">© 2026 MundoFitVzla · Comida saludable con sabor venezolano · Hecho con Amor</p>
     </div>
   </footer>
 
