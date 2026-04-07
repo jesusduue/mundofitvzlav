@@ -1498,13 +1498,25 @@ body {
     right: 0;
     width: min(420px, 100vw);
     height: 100vh;
+    height: var(--viewport-height, 100vh);
+    min-height: 100vh;
+    max-height: var(--viewport-height, 100vh);
     background: var(--color-white);
     z-index: 200;
     display: flex;
     flex-direction: column;
     box-shadow: -8px 0 40px rgba(0, 0, 0, .15);
     transform: translateX(110%);
+    overscroll-behavior: contain;
     transition: transform .5s cubic-bezier(.16, 1, .3, 1)
+}
+
+@supports (height: 100dvh) {
+    .cart-panel {
+        height: 100dvh;
+        min-height: 100dvh;
+        max-height: 100dvh
+    }
 }
 
 .cart-panel.open {
@@ -1549,7 +1561,8 @@ body {
 .cart-items-list {
     flex: 1;
     overflow-y: auto;
-    padding: 1rem 1.5rem
+    padding: 1rem 1.5rem;
+    overscroll-behavior: contain
 }
 
 .cart-empty {
@@ -1671,7 +1684,7 @@ body {
 }
 
 .cart-footer {
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.5rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
     border-top: 2px solid #f0f0f0;
     background: var(--color-bg)
 }
@@ -1723,7 +1736,8 @@ body {
     flex-direction: column;
     gap: .6rem;
     overflow-y: auto;
-    max-height: 40vh
+    max-height: 40vh;
+    overscroll-behavior: contain
 }
 
 .form-input {

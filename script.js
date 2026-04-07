@@ -128,6 +128,11 @@
 
     const money = value => currency.format(value);
 
+    function syncViewportHeight() {
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      document.documentElement.style.setProperty("--viewport-height", `${Math.round(viewportHeight)}px`);
+    }
+
     function slugify(text) {
       return String(text)
         .toLowerCase()
@@ -512,6 +517,9 @@
       });
 
       window.addEventListener("scroll", handleScroll, { passive: true });
+      window.addEventListener("resize", syncViewportHeight, { passive: true });
+      window.visualViewport?.addEventListener("resize", syncViewportHeight, { passive: true });
+      window.visualViewport?.addEventListener("scroll", syncViewportHeight, { passive: true });
     }
 
     function init() {
@@ -521,6 +529,7 @@
       renderCartItems();
       updateCartBadges();
       handleScroll();
+      syncViewportHeight();
 
       if (!reduceMotion.matches) {
         revealObserver = new IntersectionObserver((entries, obs) => {
