@@ -397,25 +397,31 @@
 
     function buildWhatsAppMessage(customer) {
       const totals = getTotals();
-      const lines = ["Hola, quiero hacer este pedido:", ""];
+      const lines = [
+        "Hola Mundo Fit! Quiero realizar el siguiente pedido:",
+        "",
+        "PRODUCTOS:"
+      ];
 
-      state.cart.forEach((item, index) => {
+      state.cart.forEach(item => {
         const subtotal = item.price * item.quantity;
-        const variant = item.variant ? ` (${item.variantLabel}: ${item.variant})` : "";
-        lines.push(`${index + 1}. ${item.name}${variant}`);
-        lines.push(`   Cantidad: ${item.quantity} | Subtotal: ${money(subtotal)}`);
+        const variant = item.variant ? ` (Masa de ${item.variant})` : "";
+        lines.push(`- ${item.name} x${item.quantity} = ${money(subtotal)}${variant}`);
       });
 
       lines.push("");
-      lines.push(`Total: ${money(totals.total)}`);
+      lines.push(`TOTAL: ${money(totals.total)}`);
       lines.push("");
-      lines.push("Datos del cliente:");
-      lines.push(`Nombre: ${customer.name}`);
-      lines.push(`Teléfono: ${customer.phone}`);
-      lines.push(`Zona/Dirección: ${customer.zone}`);
-      lines.push(`Referencia: ${customer.reference}`);
-      lines.push(`Método de pago: ${customer.payment}`);
-      if (customer.comment) lines.push(`Comentario: ${customer.comment}`);
+      lines.push("MIS DATOS:");
+      lines.push(`- Nombre: ${customer.name}`);
+      lines.push(`- Teléfono: ${customer.phone}`);
+      lines.push(`- Zona: ${customer.zone}`);
+      lines.push(`- Dirección: ${customer.zone}`);
+      lines.push(`- Referencia: ${customer.reference}`);
+      lines.push(`- Método de Pago: ${customer.payment}`);
+      lines.push(`- Comentario: ${customer.comment || "Sin comentario"}`);
+      lines.push("");
+      lines.push("Gracias!");
 
       return lines.join("\n");
     }
